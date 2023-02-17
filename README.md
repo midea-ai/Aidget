@@ -5,7 +5,7 @@
 👋 Hi, I'm Aidget.
 
     Aidget 发音 [eɪdʒɪt]
-    Aidget = Ai edge toolchain
+    Aidget = Ai edge toolbox
     Aidget = Compressor +  Inference Engine
     Aidget中文名：边端AI算法部署工具链
 
@@ -13,7 +13,7 @@
 ## Aidget介绍
 Aidget是美的AI创新中心自研的高性能深度学习推理引擎和模型自动化压缩工具链，主要应用于`linux/rtos/android/ios`等不同边端系统，面向`armv7/v8`及`dsp`等不同边端平台提供指令级加速；针对多计算单元设备，提供高性能异构计算能力；针对边端小内存设备，在内存管理方面做了精心的优化设计；同时，Aidget支持模型小型化、控制流子图和dynamic shape等推理高阶特性。
 
-目前已正式运用到美的集团各事业部不同项目的AI部署业务中，成功支持了语音冰箱空调、机器人等智能家电量产销售。
+目前已正式运用到美的集团各事业部不同项目的AI部署业务中，成功支持了语音冰箱、空调、机器人等智能家电量产销售。
 
 ## Aidget开发初衷
 
@@ -40,19 +40,26 @@ Aidget核心设计理念：
 <img src="./images/Aidget_workflow.jpg" width = "500" />
 
 ## 整体特点
-- 轻量性
-  - 推理框架主体代码无任何第三方库依赖，代码精简，算子注册接口可根据模型实际使用的算子进行定制化裁剪;
-  - 可方便地部署到包括移动设备和嵌入式设备等各种边缘设备上；支持模型FP16和INT8量化，可进一步减少模型50%-75%的体积。
-- 通用性
-
+- 轻量级部署
+  - 推理框架主体代码无任何第三方库依赖；
+  - 可根据模型实际使用的算子进行定制化裁剪，缩小库体积；
+  - 统一c++算子注册接口，可方便地部署到包括移动设备和嵌入式设备等各种边缘设备上；
+  - 支持模型FP16和INT8量化，进一步减少50%-75%的模型体积。
+- 通用性强
   - 支持onnx和tflite两种主流的模型文件格式；
   - 算子支持列表丰富，支持158个onnx算子，支持79个tflite算子；
   - 支持多输入/多输出、支持任意维度的输入输出、支持dynamic shape、支持带控制流的模型；
   - 支持linux/rtos/android/ios。
-- 易用性
+- 易用性强
   - api接口简单易用，所需的public头文件也非常精简；
-  - 同时提供了c++ api接口和c api接口，方便不同部署场景调用。
-- 高性能
+  - 同时提供了c++ api接口和c api接口，方便不同部署场景调用；
+  - 支持cmake/makefile编译；
+  - 支持定制化添加编译参数；
+  - 支持不同平台libaidget.so/libaidget.a的部署；
+  - 支持python x86推理验证；
+  - 支持python x86后量化；
+  - 支持推理数据与numpy导入/导出。
+- 高性能推理
   - 针对arm v7/v8架构，手写neon汇编kernel，充分提升cpu算子性能;
   - 针对cadence dsp架构，通过优化dsp汇编算子，充分发挥dsp的算力；
   - 广泛使用winograd卷积算法提升卷积性能，并取得了不错的加速效果；
@@ -65,7 +72,7 @@ Aidget核心设计理念：
 
 <img src="./images/Aidget.png" width = "500" />
 
-aidget推理框架分为模型转换（converter）和推理引擎（runtime）两部分
+aidget推理框架分为模型转换converter和推理引擎runtime两部分
 
 - 模型转换
   - aidget_converter:由parser和optimizer两部分组成，前者负责解析onnx和tflite模型，把训练框架算子转换成aidget算子格式，后者负责图优化，通过算子融合、冗余算子消除、算子替换、布局调整等方式优化图，一般离线运行；
