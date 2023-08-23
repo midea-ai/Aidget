@@ -1,0 +1,5 @@
+*.o
+.vscode/
+.DS_Store
+build/
+aidget_riscv
