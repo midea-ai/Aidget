@@ -4,6 +4,10 @@
 
 AidgetRISC-V is under continuous development for RISC-V operators.
 
+## Wiki
+
+You can view more detailed instructions and guidance in the [Wiki](https://github.com/midea-ai/Aidget/wiki/RISC%E2%80%90V)
+
 ## Installation
 
 Download [GCC toolchain](https://xuantie.t-head.cn/community/download?id=4090445921563774976)
